@@ -15,6 +15,7 @@ export default [
         {path:'addProduct' , component : require('../view/user/addProduct').default},
         {path:'editProfile' , component : require('../view/user/editProfile').default},
         {path:'chat' , component : require('../view/user/chat').default},
+        {path:'chat2' , component : require('../view/user/chat2').default},
 
     ]},
 
