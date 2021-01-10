@@ -10,6 +10,8 @@ Vue.config.productionTip = false
 import PerfectScrollbar from "vue2-perfect-scrollbar";
 import "vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css";
 Vue.use(PerfectScrollbar);
+import ProductZoomer from 'vue-product-zoomer'
+Vue.use(ProductZoomer)
 new Vue({
   vuetify,
   store,

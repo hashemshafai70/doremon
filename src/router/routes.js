@@ -5,7 +5,7 @@ export default [
         children: [
             {path : '' , component : require('../view/Home').default},
             {path : '/Products' , component : require('../view/Products').default},
-            {path : '/leaflet' , component : require('../view/leaflet').default},
+            {path : '/Products/:id/:string' , component : require('../view/showProduct').default},
         ]
     },
     {path : '/profile' , component : require('../view/layout/ProfileLayout').default , children:[
@@ -15,7 +15,6 @@ export default [
         {path:'addProduct' , component : require('../view/user/addProduct').default},
         {path:'editProfile' , component : require('../view/user/editProfile').default},
         {path:'chat' , component : require('../view/user/chat').default},
-        {path:'chat2' , component : require('../view/user/chat2').default},
 
     ]},
 

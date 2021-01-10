@@ -68,9 +68,34 @@
   .display-none{
     display : none !important;
   }
-
+.border-left{
+  border-left: 1px solid #ccc;
+}
+.border-top{
+  border-top: 1px solid #ccc;
+}
+.inherit-bg{
+  background-color: inherit !important;
+}
   .discount-text-decoration{
     text-decoration:line-through !important;
+  }
+  .emoji-menu{
+    transform:none !important;
+    bottom:0 !important;
+    top: 72px !important;
+    left: auto !important;
+    left: 0 !important;
+    height: 80vh;
+    background-color:white;
+    width: 255px !important;
+    z-index: 99;
+  }
+  .emoji-items-wrap , .emoji-items-wrap1{
+    height: 100% !important;
+  }
+  .emoji-picker-icon.parent-has-scroll{
+    right: 10px !important;
   }
   @keyframes lds-ellipsis1 {
     0% {
