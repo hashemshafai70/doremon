@@ -67,7 +67,23 @@
               </v-text-field>
             </div>
           </v-expand-transition>
-
+        </v-card>
+        <v-card class="mt-4 pa-3">
+          <h4 class="mb-9">خلاصه سفارش</h4>
+          <v-row class="border-bottom d-flex px-4" justify="space-between" >
+              <div>
+                <h4>مرسوله 1</h4>
+                <span>کالا</span>
+              </div>
+            <div>
+                <h4>ارسال عادی</h4>
+                <span>پنج شنبه 21 دی ماه</span>
+              </div>
+            <div>
+                <h4>مبلغ مرسوله : 237000 تومان</h4>
+              </div>
+            <v-icon>mdi-chevron-up</v-icon>
+          </v-row>
         </v-card>
       </v-col>
       <v-col cols="4"></v-col>
