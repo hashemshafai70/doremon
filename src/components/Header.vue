@@ -55,7 +55,7 @@
               </v-list-item>
             </v-list>
           </v-menu>
-          <v-btn icon>
+          <v-btn icon to="/cart">
             <v-icon>mdi-cart</v-icon>
           </v-btn>
           <v-btn icon>

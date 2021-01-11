@@ -15,7 +15,6 @@
               style="height: 100%;"
             >
              بیش از 500 فروشگاه
-             
             </div>
           </v-expand-transition>
         </v-img>

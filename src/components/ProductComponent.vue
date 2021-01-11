@@ -1,5 +1,5 @@
 <template>
-  <v-card class="pa-4 cardProduct" min-height="370px" :to="`/Product/${product.id}`">
+  <v-card class="pa-4 cardProduct" min-height="370px" :to="`/Products/${product.title}/${product.id}`">
     <v-img :src="product.img" max-height="150px"></v-img>
     <div>
       <div class="wraperTitleProductCard">

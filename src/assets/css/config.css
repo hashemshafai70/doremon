@@ -4,12 +4,15 @@
     src: url(../fonts/IRANSansWeb400.woff);
   }
   *{
-    letter-spacing: 0;
+    letter-spacing: 0 !important;
     font-weight: lighter;
   }
   a{
       color: black;
       text-decoration: none;
+  }
+  strong{
+    font-weight: bolder !important;
   }
   .mysubtitle-1{
     font-size: 14px !important;
@@ -74,9 +77,18 @@
 .border-top{
   border-top: 1px solid #ccc;
 }
+.border-bottom{
+  border-bottom: 1px solid #ccc;
+}
+  .border-right{
+  border-right: 1px solid #ccc;
+}
 .inherit-bg{
   background-color: inherit !important;
 }
+  .inherit-bg .v-item-group{
+    background-color:inherit !important;
+  }
   .discount-text-decoration{
     text-decoration:line-through !important;
   }
@@ -96,6 +108,12 @@
   }
   .emoji-picker-icon.parent-has-scroll{
     right: 10px !important;
+  }
+  .align-center{
+    align-items: center;
+  }
+  .justify-center{
+    justify-content: center;
   }
   @keyframes lds-ellipsis1 {
     0% {

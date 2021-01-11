@@ -43,7 +43,7 @@
           </v-card>
           <v-card class="pa-5 mt-4" rounded> </v-card>
         </v-col>
-        <v-col cols="12" :md="!myshowMap ? '8' : '7'">
+        <v-col cols="12" :md="!myshowMap ? '9' : '7'">
           <v-row>
             <v-col
               cols="12"

@@ -6,6 +6,8 @@ export default [
             {path : '' , component : require('../view/Home').default},
             {path : '/Products' , component : require('../view/Products').default},
             {path : '/Products/:id/:string' , component : require('../view/showProduct').default},
+            {path : '/cart' , component : require('../view/cart').default},
+            {path : '/shipping' , component : require('../view/shipping').default},
         ]
     },
     {path : '/profile' , component : require('../view/layout/ProfileLayout').default , children:[
