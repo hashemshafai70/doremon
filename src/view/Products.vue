@@ -51,7 +51,7 @@
               v-for="product in Products"
               :key="product.id"
             >
-              <product-component :product="product"></product-component>
+              <product-component @GetLocation="myshowMap = true" :product="product"></product-component>
             </v-col>
           </v-row>
         </v-col>
@@ -62,7 +62,7 @@
               :zoom="zoom"
               :center="center"
               :options="mapOptions"
-              style="height: 80%"
+              style="height: 70%"
               @update:center="centerUpdate"
               @update:zoom="zoomUpdate"
               :max-bounds="maxBounds"
@@ -70,11 +70,15 @@
             >
               <l-tile-layer :url="url" :attribution="attribution" />
               <l-control class="submitMap">
-                <v-btn color="success" @click="submitMap">
-                  ارسال
-                </v-btn>
+                <v-text-field v-if="!findMarker" background-color="white" rounded  label="جستجو کنید ..." filled  solo>
+                  <template v-slot:append>
+                    <v-btn color="primary" rounded @click="submitMap">
+                      ارسال
+                    </v-btn>
+                  </template>
+                </v-text-field>
               </l-control>
-              <l-marker :lat-lng="centerMarker">
+              <l-marker v-if="!findMarker" :lat-lng="centerMarker">
                 <l-icon
                   :icon-anchor="staticAnchor"
                   class-name="someExtraClass"
@@ -86,8 +90,31 @@
                     src="../assets/image/logo.png"
                   />
                 </l-icon>
+
               </l-marker>
+              <template v-if="findMarker">
+                <l-marker @click="SelectStore(index)" v-for="(marker , index) in MarketFined" :key="marker.id" :lat-lng="marker.ltlng" @mouseover="hoverMarker(index)" @mouseleave="unHoverMarker(index)">
+                  <l-icon
+                      :icon-anchor="staticAnchor"
+                      class-name="someExtraClass"
+                      icon-url="../assets/image/logo.png"
+                      :icon-size="[20, 15]"
+                  >
+                    <img
+                        style=" width: 20px !important;height: 20px !important;"
+                        src="../assets/image/logo.png"
+                    />
+                  </l-icon>
+                </l-marker>
+              </template>
             </l-map>
+            <v-card color="grey" class="pa-3" v-if="hover">
+              <p>{{MarkerTitle}}</p>
+              <p>فاصله شما تا این مغازه {{MarkerDistance}} می باشد</p>
+            </v-card>
+            <v-btn class="mt-3" v-if="!findMarker" block @click="findMarker = true" color="success">
+              ارسال
+            </v-btn>
           </v-card>
         </v-col>
       </v-row>
@@ -97,26 +124,17 @@
 <script>
 import ProductComponent from "../components/ProductComponent";
 import { latLng, latLngBounds } from "leaflet";
-import { LMap, LTileLayer, LMarker, LIcon , LControl } from "vue2-leaflet";
+import { LMap, LTileLayer, LMarker, LIcon , LControl   } from "vue2-leaflet";
 export default {
   data() {
     return {
-      myshowMap: false,
-      staticAnchor: [16, 37],
-      clicks: 0,
-      delay: 700,
-      timer: null,
-      centerMarker: [36.315263, 419.586968],
-      maxBounds: latLngBounds([
-        [36.114565, 419.728021],
-        [36.589068, 419.11417]
-      ]),
+      hover : false ,
       checkbox: [true, true, true, true, true, true],
       Products: [
         {
           id: 1,
           img:
-            "https://dkstatics-public.digikala.com/digikala-products/111990397.png?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_90",
+              "https://dkstatics-public.digikala.com/digikala-products/111990397.png?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_90",
           title: "زعفران درجه یک مصطفوی مقدار 4 گرم",
           rate: 4.5,
           countRate: 576,
@@ -127,7 +145,7 @@ export default {
         {
           id: 2,
           img:
-            "https://dkstatics-public.digikala.com/digikala-products/0f9a7478489f4507afa905ea823614d041295a29_1596344776.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_90",
+              "https://dkstatics-public.digikala.com/digikala-products/0f9a7478489f4507afa905ea823614d041295a29_1596344776.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_90",
           title: "زعفران درجه یک مصطفوی مقدار 4 گرم",
           rate: 4.5,
           countRate: 576,
@@ -136,7 +154,7 @@ export default {
         {
           id: 3,
           img:
-            "https://dkstatics-public.digikala.com/digikala-products/55cdd7df30a4dfdfcf8628da4dc6849d339cc068_1605016181.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_90",
+              "https://dkstatics-public.digikala.com/digikala-products/55cdd7df30a4dfdfcf8628da4dc6849d339cc068_1605016181.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_90",
           title: "برنج طارم هاشمی ممتاز طبیعت - 10 کیلوگرم",
           rate: 4.1,
           countRate: 191,
@@ -147,7 +165,7 @@ export default {
         {
           id: 4,
           img:
-            "https://dkstatics-public.digikala.com/digikala-products/457834b32a02f1525722a0da345927e6692cd40e_1594182512.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_90",
+              "https://dkstatics-public.digikala.com/digikala-products/457834b32a02f1525722a0da345927e6692cd40e_1594182512.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_90",
           title: "برنج فجر هایلی - 10 کیلو گرم",
           rate: 4.0,
           countRate: 376,
@@ -158,7 +176,7 @@ export default {
         {
           id: 5,
           img:
-            "https://dkstatics-public.digikala.com/digikala-products/2b3b36fbd98cd2ffb78cb276f3db1255fbc6c7f8_1605341726.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_90",
+              "https://dkstatics-public.digikala.com/digikala-products/2b3b36fbd98cd2ffb78cb276f3db1255fbc6c7f8_1605341726.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_90",
           title: "روغن سرخ کردنی شیررضا - 1.8لیتر",
           rate: 3.5,
           countRate: 2576,
@@ -167,7 +185,7 @@ export default {
         {
           id: 6,
           img:
-            "https://dkstatics-public.digikala.com/digikala-products/d4cbc118977b24b447c250e1313c71d471d09a13_1600937105.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_90",
+              "https://dkstatics-public.digikala.com/digikala-products/d4cbc118977b24b447c250e1313c71d471d09a13_1600937105.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_90",
           title: "خمیر مایه ضامن - 100 گرم",
           rate: 4.7,
           countRate: 200,
@@ -178,7 +196,7 @@ export default {
         {
           id: 7,
           img:
-            "https://dkstatics-public.digikala.com/digikala-products/d4cbc118977b24b447c250e1313c71d471d09a13_1600937105.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_90",
+              "https://dkstatics-public.digikala.com/digikala-products/d4cbc118977b24b447c250e1313c71d471d09a13_1600937105.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_90",
           title: "خمیر مایه ضامن - 100 گرم",
           rate: 4.7,
           countRate: 200,
@@ -189,7 +207,7 @@ export default {
         {
           id: 8,
           img:
-            "https://dkstatics-public.digikala.com/digikala-products/d4cbc118977b24b447c250e1313c71d471d09a13_1600937105.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_90",
+              "https://dkstatics-public.digikala.com/digikala-products/d4cbc118977b24b447c250e1313c71d471d09a13_1600937105.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_90",
           title: "خمیر مایه ضامن - 100 گرم",
           rate: 4.7,
           countRate: 200,
@@ -200,7 +218,7 @@ export default {
         {
           id: 9,
           img:
-            "https://dkstatics-public.digikala.com/digikala-products/d4cbc118977b24b447c250e1313c71d471d09a13_1600937105.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_90",
+              "https://dkstatics-public.digikala.com/digikala-products/d4cbc118977b24b447c250e1313c71d471d09a13_1600937105.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_90",
           title: "خمیر مایه ضامن - 100 گرم",
           rate: 4.7,
           countRate: 200,
@@ -211,7 +229,7 @@ export default {
         {
           id: 10,
           img:
-            "https://dkstatics-public.digikala.com/digikala-products/d4cbc118977b24b447c250e1313c71d471d09a13_1600937105.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_90",
+              "https://dkstatics-public.digikala.com/digikala-products/d4cbc118977b24b447c250e1313c71d471d09a13_1600937105.jpg?x-oss-process=image/resize,m_lfit,h_600,w_600/quality,q_90",
           title: "خمیر مایه ضامن - 100 گرم",
           rate: 4.7,
           countRate: 200,
@@ -227,6 +245,24 @@ export default {
         ["Update", "mdi-update"],
         ["Delete", "mdi-delete"]
       ],
+      MarketFined: [
+        {id : 1,ltlng :[36.316263, 419.596968] , title : 'سوپر علی'  , distance : '2 کیلومتر' },
+        {id : 2,ltlng :[36.318263, 419.566968] , title : 'سوپر محمد'  , distance : '5 کیلومتر' }
+      ],
+      MarkerTitle : '' ,
+      MarkerDistance : '',
+      findMarker : false ,
+      myshowMap: false,
+      staticAnchor: [16, 37],
+      clicks: 0,
+      delay: 700,
+      timer: null,
+      timerSelectstore : null ,
+      centerMarker: [36.315263, 419.586968],
+      maxBounds: latLngBounds([
+        [36.114565, 419.728021],
+        [36.589068, 419.11417]
+      ]),
       zoom: 13,
       center: latLng(36.315263, 419.586968),
       url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
@@ -244,6 +280,19 @@ export default {
     };
   },
   methods: {
+    hoverMarker(index){
+      this.hover = true;
+      this.MarketFined.filter((item , Itemindex) => {
+          if (index == Itemindex) {
+            this.MarkerTitle = item.title ;
+            this.MarkerDistance = item.distance ;
+          }
+      })
+
+    },
+    unHoverMarker(){
+      this.hover = false;
+    },
     centerUpdate(center) {
       this.currentCenter = center;
     },
@@ -257,7 +306,6 @@ export default {
       alert("Click!");
     },
     changeCenter(event) {
-      console.log(event.latlng.lat, event.latlng.lng);
       this.clicks++;
       if (this.clicks === 1) {
         var self = this;
@@ -273,6 +321,32 @@ export default {
     },
     submitMap(){
       alert('hello')
+    },
+    SelectStore(index){
+
+      this.clicks++;
+      if (this.clicks === 1) {
+        var self = this;
+        this.timerSelectstore = setTimeout(function() {
+          self.clicks = 0;
+        }, this.delay);
+      } else {
+        clearTimeout(this.timerSelectstore);
+        this.clicks = 0;
+        let Market ;
+        this.MarketFined.filter((item , itemIndex) =>{
+          if (index == itemIndex){
+            Market = item
+          }
+        })
+        this.myshowMap = false
+        this.findMarker = false
+        this.hover = false
+        this.$store.dispatch('selectStore' , Market )
+      }
+
+
+      // alert(`Market is ${Market.ltlng} , name is ${Market.title}`)
     }
   },
   components: {
@@ -281,7 +355,7 @@ export default {
     LTileLayer,
     LMarker,
     LIcon,
-    LControl 
+    LControl ,
   }
 };
 </script>
@@ -318,5 +392,17 @@ export default {
   top: 15px;
   right: 15px;
   font-family: "myFirstFont" !important;
+}
+.leaflet-right{
+  width: 50% !important;
+}
+.leaflet-control{
+  width: 100% !important;
+}
+.v-input__slot{
+  padding-left: 10px !important;
+}
+.leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar{
+  border: none !important;
 }
 </style>

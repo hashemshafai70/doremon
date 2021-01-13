@@ -130,7 +130,7 @@
           <v-card class="pa-4 ">
             <h4 class="my-4">10 فروشنده برتر</h4>
             <div style="overflow-x:auto;">
-              <table>
+              <table class="dashboardSeller">
                 <thead>
                   <tr>
                     <th>نام تجاری</th>
@@ -249,22 +249,22 @@ export default {
 <style>
 
 
-table {
+table.dashboardSeller {
   border-collapse: collapse;
   border-spacing: 0;
   width: 100%;
   border: 1px solid #ddd;
 }
-thead th {
+table.dashboardSeller thead th {
   background-color: #e4e3e3;
 }
-th,
-td {
+table.dashboardSeller th,
+table.dashboardSeller td {
   padding: 8px;
   text-align: center;
 }
 
-tr:nth-child(even) {
+table.dashboardSeller tr:nth-child(even) {
   background-color: #f2f2f2;
 }
 </style>

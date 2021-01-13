@@ -1,5 +1,5 @@
 <template>
-  <v-card class="pa-4 cardProduct" min-height="370px" :to="`/Products/${product.title}/${product.id}`">
+  <v-card class="pa-4 cardProduct" min-height="370px" @click="checkStoreSend">
     <v-img :src="product.img" max-height="150px"></v-img>
     <div>
       <div class="wraperTitleProductCard">
@@ -39,6 +39,13 @@ export default {
     methods: {
       plusProduct(){
         console.log('hello');
+      },
+      checkStoreSend(){
+          if (localStorage.getItem('store') && JSON.parse(localStorage.getItem('store')).ltlng){
+            this.$router.push(`/Products/${this.product.title}/${this.product.id}\``)
+          }else{
+            this.$emit('GetLocation')
+          }
       }
     }
 }   

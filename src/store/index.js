@@ -7,6 +7,7 @@ export default new Vuex.Store({
     state : {
         userToken : localStorage.getItem('user-token') ,
         userLogin : !! localStorage.getItem('user-token') ,
+        store : JSON.parse(localStorage.getItem('store'))
     },
     mutations :{
         SET_USER(state,payload){
@@ -17,6 +18,9 @@ export default new Vuex.Store({
             state.userToken = null;
             state.userLogin = false;
             localStorage.removeItem('user-token');
+        },
+        SELECT_STORE(state , market){
+            state.store = market
         }
     },
      actions:{
@@ -26,6 +30,10 @@ export default new Vuex.Store({
          },
          logOut({commit}){
              commit('LOGOUT');
+         },
+         selectStore({commit},Market){
+             localStorage.setItem('store' , JSON.stringify(Market))
+             commit('SELECT_STORE' , Market)
          }
      }
 })

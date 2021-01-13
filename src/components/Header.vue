@@ -28,6 +28,16 @@
       </template>
       <v-spacer></v-spacer>
       <template v-if="$vuetify.breakpoint.mdAndUp">
+       <v-menu v-if="store" z-index="100" bottom min-width="150px" :offset-y="true">
+         <template v-slot:activator="{ on , attrs}" >
+           <v-btn color="red" dark v-bind="attrs" v-on="on" ><v-icon class="ml-3">mdi-map</v-icon>{{store.title}}</v-btn>
+         </template>
+        <v-list>
+          <v-list-item>
+             افزودن به فروشگاهها
+          </v-list-item>
+        </v-list>
+       </v-menu>
         <template v-if="userLogin">
           <v-menu z-index="110" bottom min-width="150px" :offset-y="true">
             <template v-slot:activator="{ on, attrs }">
@@ -44,6 +54,14 @@
                 >
                 <v-list-item-title class="mysubtitle-1"
                   >پروفایل کاربری</v-list-item-title
+                >
+              </v-list-item>
+              <v-list-item to="/userProfile" dense link>
+                <v-list-item-icon class="ml-3"
+                  ><v-icon>mdi-account</v-icon></v-list-item-icon
+                >
+                <v-list-item-title class="mysubtitle-1"
+                  >پروفایل کاربری یوزر</v-list-item-title
                 >
               </v-list-item>
               <v-divider></v-divider>
@@ -141,9 +159,7 @@
           <v-list-item-title>John Leider</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-
       <v-divider></v-divider>
-
       <v-list dense>
         <v-list-item link>
           <v-list-item-icon>
@@ -195,6 +211,9 @@ export default {
   computed: {
     userLogin() {
       return store.state.userLogin;
+    },
+    store(){
+      return store.state.store
     }
   },
   methods: {
