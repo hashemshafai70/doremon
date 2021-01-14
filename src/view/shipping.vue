@@ -130,49 +130,45 @@
         </v-card>
       </v-col>
     </v-row>
-    <v-dialog v-model="dialogLocation" max-width="600">
-        <v-card class="pa-3">
-          <div style="height: 500px; width: 100%">
-            <l-map
-                v-if="showMap"
-                :zoom="zoom"
-                :center="center"
-                :options="mapOptions"
-                style="height: 100%"
-                @update:center="centerUpdate"
-                @update:zoom="zoomUpdate"
-                @click="changeCenter"
+    <div class="mydialog" v-if="dialogLocation">
+      <div class="map">
+        <l-map
+            v-if="showMap"
+            :zoom="zoom"
+            :center="center"
+            :options="mapOptions"
+            style="height: 100%"
+            @update:center="centerUpdate"
+            @update:zoom="zoomUpdate"
+            @click="changeCenter"
+        >
+          <l-tile-layer
+              :url="url"
+              :attribution="attribution"
+          />
+          <l-marker :lat-lng="centerMarker">
+            <l-icon
+                :icon-anchor="staticAnchor"
+                class-name="someExtraClass"
+                icon-url="../assets/image/logo.png"
+                :icon-size="[20, 15]"
             >
-              <l-tile-layer
-                  :url="url"
-                  :attribution="attribution"
+              <img
+                  style=" width: 20px !important;height: 20px !important;"
+                  src="../assets/image/logo.png"
               />
-              <l-marker :lat-lng="centerMarker">
-                <l-icon
-                    :icon-anchor="staticAnchor"
-                    class-name="someExtraClass"
-                    icon-url="../assets/image/logo.png"
-                    :icon-size="[20, 15]"
-                >
-                  <img
-                      style=" width: 20px !important;height: 20px !important;"
-                      src="../assets/image/logo.png"
-                  />
-                </l-icon>
-              </l-marker>
-            </l-map>
-          </div>
-          <v-btn color="success" @click="submitMap">
-            ارسال
-          </v-btn>
-        </v-card>
-    </v-dialog>
+            </l-icon>
+          </l-marker>
+        </l-map>
+      </div>
+    </div>
   </v-container>
 </template>
 
 <script>
 import { latLng } from "leaflet";
 import { LMap, LTileLayer, LMarker , LIcon  } from "vue2-leaflet";
+
 export default {
   name: "shipping",
   data() {
@@ -181,7 +177,7 @@ export default {
       discountCode : '',
       PayStatus: "Cart",
       isExpandProductShipping : null,
-      dialogLocation : false,
+      dialogLocation : true,
 
       /// map
       clicks: 0,
@@ -255,8 +251,28 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
+.mydialog{
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.6);
+}
+.mydialog >div{
+  position: absolute;
+  width: 50%;
+  height: 300px !important;
+  overflow: auto;
+  top: 200px;
+  left: 25%;
+  border-radius: 5px;
+}
 .wraperInputDiscount{
   max-width: 400px !important;
+}
+.mydialog .vue2leaflet-map{
+  height : 75% !important;
 }
 </style>

@@ -22,7 +22,7 @@
         </div>
         <V-spacer></V-spacer>
         <div>
-          <v-menu bottom right offset-x="10">
+          <v-menu bottom right :offset-x="true">
             <template v-slot:activator="{on , attrs}">
               <v-icon class="ml-2" v-on="on" v-bind="attrs">mdi-dots-vertical</v-icon>
             </template>
@@ -52,7 +52,7 @@
         </div>
         <V-spacer></V-spacer>
         <div>
-          <v-menu bottom right offset-x="10">
+          <v-menu bottom right :offset-x="true">
             <template v-slot:activator="{on , attrs}">
               <v-icon class="ml-2" v-on="on" v-bind="attrs">mdi-dots-vertical</v-icon>
             </template>
@@ -82,7 +82,7 @@
         </div>
         <V-spacer></V-spacer>
         <div>
-          <v-menu bottom right offset-x="10">
+          <v-menu bottom right :offset-x="true">
             <template v-slot:activator="{on , attrs}">
               <v-icon class="ml-2" v-on="on" v-bind="attrs">mdi-dots-vertical</v-icon>
             </template>
@@ -112,7 +112,7 @@
         </div>
         <V-spacer></V-spacer>
         <div>
-          <v-menu bottom right offset-x="10">
+          <v-menu bottom right :offset-x="true">
             <template v-slot:activator="{on , attrs}">
               <v-icon class="ml-2" v-on="on" v-bind="attrs">mdi-dots-vertical</v-icon>
             </template>

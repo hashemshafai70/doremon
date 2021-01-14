@@ -3,7 +3,7 @@
     <v-row>
       <v-col cols="12" md="3">
         <v-card
-            height="65vh"
+            height="80vh"
             width="256"
             class="mx-auto navigationUserProfile"
         >
