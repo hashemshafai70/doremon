@@ -5,10 +5,10 @@
         <v-card
             height="65vh"
             width="256"
-            class="mx-auto"
+            class="mx-auto navigationUserProfile"
         >
-          <v-navigation-drawer permanent>
-            <v-list-item>
+          <v-navigation-drawer  permanent>
+            <v-list-item exact active-class="bg-none" to="/userProfile">
               <v-list-item-content>
                 <v-timeline
                     align-top
@@ -42,7 +42,7 @@
                       <v-col cols="8">
                         <strong>0 تومان</strong>
                         <div class="caption">
-                          <v-btn class="pa-0" color="info" text>افزایش موجودی
+                          <v-btn @click.prevent="increaseBudgeUser" class="pa-0" color="info" text>افزایش موجودی
                             <v-icon>mdi-chevron-left</v-icon>
                           </v-btn>
                         </div>
@@ -88,6 +88,7 @@
               </v-list-item>
               <v-list-item
                   link
+                  to="/userProfile/myLikes"
               >
                 <v-list-item-icon>
                   <v-icon>mdi-heart-outline</v-icon>
@@ -99,6 +100,7 @@
               </v-list-item>
               <v-list-item
                   link
+                  to="/userProfile/myComments"
               >
                 <v-list-item-icon>
                   <v-icon>mdi-comment-text-multiple-outline</v-icon>
@@ -110,6 +112,7 @@
               </v-list-item>
               <v-list-item
                   link
+                  to="/userProfile/myInfo"
               >
                 <v-list-item-icon>
                   <v-icon>mdi-account</v-icon>
@@ -121,6 +124,7 @@
               </v-list-item>
               <v-list-item
                   link
+                  to="/"
               >
                 <v-list-item-icon>
                   <v-icon>mdi-logout-variant</v-icon>
@@ -143,7 +147,12 @@
 
 <script>
 export default {
-name: "userProfile"
+name: "userProfile",
+  methods:{
+    increaseBudgeUser(){
+      alert('hello')
+    }
+  }
 }
 </script>
 
@@ -167,5 +176,9 @@ name: "userProfile"
 .v-timeline--dense .v-timeline-item__body {
   width: 100% !important;
   max-width: 100% !important;
+}
+.navigationUserProfile{
+  position: sticky !important;
+  top: 20px;
 }
 </style>

@@ -87,6 +87,12 @@
   .border-right{
   border-right: 1px solid #ccc;
 }
+  .bordered{
+    border: 1px solid #ccc !important;
+  }
+  .bg-none:before{
+    background-color: white !important;
+  }
 .inherit-bg{
   background-color: inherit !important;
 }

@@ -103,13 +103,13 @@ export default {
 </script>
 
 <style>
-table.dashboardUser, table.order-last {
+table.dashboardUser, table.order-last, table.InfoUserTable {
   border-collapse: collapse;
   border-spacing: 0;
   width: 100%;
   border: 1px solid #ddd;
 }
-table.dashboardUser td,table.order-last td,table.order-last th{
+table.dashboardUser td,table.order-last td,table.order-last th, table.InfoUserTable{
   padding: 20px !important;
   border: 1px solid #ddd;
 }

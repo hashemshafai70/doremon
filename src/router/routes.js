@@ -11,7 +11,10 @@ export default [
             {
                 path: '/userProfile', component: require('../view/layout/userProfile').default, children: [
                     { path: '', component: require('../view/userProfile/dashboard').default},
-                    { path: 'myOrders', component: require('../view/userProfile/myOrders').default}
+                    { path: 'myOrders', component: require('../view/userProfile/myOrders').default},
+                    { path: 'myLikes', component: require('../view/userProfile/myLike').default},
+                    { path: 'myComments', component: require('../view/userProfile/myComments').default},
+                    { path: 'myInfo', component: require('../view/userProfile/myInformation').default},
                 ]
             },
         ]
